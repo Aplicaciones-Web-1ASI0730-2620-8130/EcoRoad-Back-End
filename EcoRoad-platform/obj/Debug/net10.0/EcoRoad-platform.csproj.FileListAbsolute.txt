@@ -1,0 +1,12 @@
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\bin\Debug\net10.0\EcoRoad-platform.deps.json
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\bin\Debug\net10.0\EcoRoad-platform.dll
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\bin\Debug\net10.0\EcoRoad-platform.pdb
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\obj\Debug\net10.0\EcoRoad-platform.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\obj\Debug\net10.0\EcoRoad-platform.AssemblyInfoInputs.cache
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\obj\Debug\net10.0\EcoRoad-platform.AssemblyInfo.cs
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\obj\Debug\net10.0\EcoRoad-platform.csproj.CoreCompileInputs.cache
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\obj\Debug\net10.0\EcoRoad-platform.sourcelink.json
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\obj\Debug\net10.0\EcoRoad-platform.dll
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\obj\Debug\net10.0\refint\EcoRoad-platform.dll
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\obj\Debug\net10.0\EcoRoad-platform.pdb
+C:\Users\ITALO\RiderProjects\EcoRoad-Back-End\EcoRoad-platform\obj\Debug\net10.0\ref\EcoRoad-platform.dll
