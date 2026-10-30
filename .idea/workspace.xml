@@ -11,8 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a086136-58f2-40f2-8e8a-1c54581451b6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/EcoRoad-platform.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/EcoRoad-platform.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform.sln" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +48,7 @@
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="SWEA" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5,
@@ -101,7 +101,8 @@
     <MESSAGE value="refactor(projects): align bounded context with modular monolith layout" />
     <MESSAGE value="feat(projects): add application services for road site registration" />
     <MESSAGE value="feat(projects): add rest api for road projects" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(projects): add rest api for road projects" />
+    <MESSAGE value="fix(platform): target net10 so the project loads in Rider" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(platform): target net10 so the project loads in Rider" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
