@@ -20,6 +20,14 @@ public class RoadSection
         WorkFronts = new List<WorkFront>();
     }
 
+    public void Update(string name, double startKilometer, double endKilometer)
+    {
+        Name = ProjectRules.Require(name, "Name", 100);
+        ProjectRules.RequireKilometerRange(startKilometer, endKilometer);
+        StartKilometer = startKilometer;
+        EndKilometer = endKilometer;
+    }
+
     public string Id { get; set; } = string.Empty;
 
     public string ProjectId { get; set; } = string.Empty;

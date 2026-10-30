@@ -11,7 +11,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a086136-58f2-40f2-8e8a-1c54581451b6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/EcoRoad-platform.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/EcoRoad-platform.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Application/CommandServices/IRoadSiteCommandService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Projects/Application/CommandServices/IRoadSiteCommandService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Application/Internal/CommandServices/RoadSiteCommandService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Projects/Application/Internal/CommandServices/RoadSiteCommandService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Application/Internal/QueryServices/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Application/QueryServices/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Domain/Model/Aggregates/RoadSection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Projects/Domain/Model/Aggregates/RoadSection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Domain/Model/ProjectRuleException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Projects/Domain/Model/ProjectRuleException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Domain/Model/Queries/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Infrastructure/Persistence/EntityFrameworkCore/Repositories/RoadProjectRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Projects/Infrastructure/Persistence/EntityFrameworkCore/Repositories/RoadProjectRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Infrastructure/Persistence/EntityFrameworkCore/Repositories/RoadSectionRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Projects/Infrastructure/Persistence/EntityFrameworkCore/Repositories/RoadSectionRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Interfaces/Rest/Resources/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Projects/Interfaces/Rest/Transform/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +54,7 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/EcoRoad-platform/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EcoRoad-platform/Projects/Infrastructure/Persistence/EntityFrameworkCore/Configuration/Extensions/ModelBuilderExtensions.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -91,7 +106,8 @@
     <MESSAGE value="feat(projects): add db context and entity configurations" />
     <MESSAGE value="feat(projects): implement infrastructure repositories" />
     <MESSAGE value="refactor(projects): align bounded context with modular monolith layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor(projects): align bounded context with modular monolith layout" />
+    <MESSAGE value="feat(projects): add application services for road site registration" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(projects): add application services for road site registration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

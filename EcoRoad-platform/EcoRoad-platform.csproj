@@ -9,18 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Projects\Application\CommandServices\" />
-    <Folder Include="Projects\Application\Internal\CommandServices\" />
-    <Folder Include="Projects\Application\Internal\QueryServices\" />
-    <Folder Include="Projects\Application\QueryServices\" />
-    <Folder Include="Projects\Domain\Model\Commands\" />
-    <Folder Include="Projects\Domain\Model\Queries\" />
     <Folder Include="Projects\Domain\Model\ValueObjects\" />
-    <Folder Include="Projects\Interfaces\Rest\Resources\" />
-    <Folder Include="Projects\Interfaces\Rest\Transform\" />
   </ItemGroup>
 
 </Project>

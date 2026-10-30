@@ -37,7 +37,17 @@ public class RoadSectionRepository : IRoadSectionRepository
 
     public async Task UpdateAsync(RoadSection section, CancellationToken cancellationToken = default)
     {
-        _context.Set<RoadSection>().Update(section);
+        var current = await _context.Set<RoadSection>()
+            .FirstOrDefaultAsync(item => item.Id == section.Id, cancellationToken);
+
+        if (current == null)
+        {
+            return;
+        }
+
+        current.Name = section.Name;
+        current.StartKilometer = section.StartKilometer;
+        current.EndKilometer = section.EndKilometer;
         await _context.SaveChangesAsync(cancellationToken);
     }
 

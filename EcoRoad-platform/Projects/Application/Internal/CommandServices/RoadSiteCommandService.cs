@@ -63,7 +63,7 @@ public class RoadSiteCommandService : IRoadSiteCommandService
         var project = await _projects.GetByIdAsync(command.ProjectId, cancellationToken);
         if (project == null)
         {
-            throw new ProjectRuleException("Road project was not found.");
+            throw new ProjectRuleException("Road project was not found.", notFound: true);
         }
 
         var section = new RoadSection(
@@ -87,7 +87,7 @@ public class RoadSiteCommandService : IRoadSiteCommandService
         var section = await _sections.GetByIdAsync(command.SectionId, cancellationToken);
         if (section == null)
         {
-            throw new ProjectRuleException("Road section was not found.");
+            throw new ProjectRuleException("Road section was not found.", notFound: true);
         }
 
         var workFront = new WorkFront(section.Id, command.Name, command.Status);
@@ -97,5 +97,50 @@ public class RoadSiteCommandService : IRoadSiteCommandService
             workFront.Id,
             section.Id);
         return workFront;
+    }
+
+    public async Task<RoadSection> Handle(
+        UpdateRoadSectionCommand command,
+        CancellationToken cancellationToken = default)
+    {
+        var section = await FindSectionAsync(command.ProjectId, command.SectionId, cancellationToken);
+        section.Update(command.Name, command.StartKilometer, command.EndKilometer);
+        await _sections.UpdateAsync(section, cancellationToken);
+        _logger.LogInformation(
+            "Road section {SectionId} updated for project {ProjectId}.",
+            section.Id,
+            command.ProjectId);
+        return section;
+    }
+
+    public async Task Handle(
+        DeleteRoadSectionCommand command,
+        CancellationToken cancellationToken = default)
+    {
+        var section = await FindSectionAsync(command.ProjectId, command.SectionId, cancellationToken);
+        if (section.WorkFronts.Count > 0)
+        {
+            throw new ProjectRuleException("Road section cannot be deleted while it has work fronts.");
+        }
+
+        await _sections.DeleteAsync(section.Id, cancellationToken);
+        _logger.LogInformation(
+            "Road section {SectionId} deleted from project {ProjectId}.",
+            section.Id,
+            command.ProjectId);
+    }
+
+    private async Task<RoadSection> FindSectionAsync(
+        string projectId,
+        string sectionId,
+        CancellationToken cancellationToken)
+    {
+        var section = await _sections.GetByIdWithWorkFrontsAsync(sectionId, cancellationToken);
+        if (section == null || section.ProjectId != projectId)
+        {
+            throw new ProjectRuleException("Road section was not found.", notFound: true);
+        }
+
+        return section;
     }
 }

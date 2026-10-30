@@ -33,6 +33,7 @@ public class RoadProjectRepository : IRoadProjectRepository
         return await _context.Set<RoadProject>()
             .AsNoTracking()
             .Include(project => project.Sections)
+            .ThenInclude(section => section.WorkFronts)
             .FirstOrDefaultAsync(project => project.Id == id, cancellationToken);
     }
 
