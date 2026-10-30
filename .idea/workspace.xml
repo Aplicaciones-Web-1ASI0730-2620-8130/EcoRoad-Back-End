@@ -10,7 +10,29 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="edd78715-aca7-4f1d-a94d-28f3a1f84919" name="Changes" comment="" />
+    <list default="true" id="edd78715-aca7-4f1d-a94d-28f3a1f84919" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/bin/Debug/net10.0/EcoRoad-platform.deps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/bin/Debug/net10.0/EcoRoad-platform.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/bin/Debug/net10.0/EcoRoad-platform.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/.NETCoreApp,Version=v10.0.AssemblyAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.AssemblyInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.AssemblyInfoInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.GlobalUsings.g.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.csproj.CoreCompileInputs.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.csproj.FileListAbsolute.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/EcoRoad-platform.sourcelink.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/ref/EcoRoad-platform.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/Debug/net10.0/refint/EcoRoad-platform.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/EcoRoad-platform.csproj.nuget.dgspec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/EcoRoad-platform.csproj.nuget.g.props" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/EcoRoad-platform.csproj.nuget.g.targets" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/project.assets.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/obj/project.nuget.cache" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -81,6 +103,8 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="feat(commercial): add domain entities and repository interfaces" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(commercial): add domain entities and repository interfaces" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
