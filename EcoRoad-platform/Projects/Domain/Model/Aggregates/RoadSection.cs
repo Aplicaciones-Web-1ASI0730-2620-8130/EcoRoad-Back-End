@@ -1,7 +1,25 @@
+using EcoRoad.Projects.Domain.Model;
+
 namespace EcoRoad.Projects.Domain.Model.Aggregates;
 
 public class RoadSection
 {
+    public RoadSection()
+    {
+        WorkFronts = new List<WorkFront>();
+    }
+
+    public RoadSection(string projectId, string name, double startKilometer, double endKilometer)
+    {
+        Id = Guid.NewGuid().ToString();
+        ProjectId = ProjectRules.Require(projectId, "Project id", 36);
+        Name = ProjectRules.Require(name, "Name", 100);
+        ProjectRules.RequireKilometerRange(startKilometer, endKilometer);
+        StartKilometer = startKilometer;
+        EndKilometer = endKilometer;
+        WorkFronts = new List<WorkFront>();
+    }
+
     public string Id { get; set; } = string.Empty;
 
     public string ProjectId { get; set; } = string.Empty;

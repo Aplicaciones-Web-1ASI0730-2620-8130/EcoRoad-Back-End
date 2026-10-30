@@ -12,21 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2a086136-58f2-40f2-8e8a-1c54581451b6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/EcoRoad.Projects.Domain.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Entities/RoadProject.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Entities/RoadSection.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Entities/WorkFront.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Repositories/IRoadProjectRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Repositories/IRoadSectionRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Repositories/IWorkFrontRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Data/Configurations/RoadProjectConfiguration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Data/Configurations/RoadSectionConfiguration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Data/Configurations/WorkFrontConfiguration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Data/ProjectDbContext.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/EcoRoad.Projects.Infrastructure.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Repositories/RoadProjectRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Repositories/RoadSectionRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Repositories/WorkFrontRepository.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,20 +26,20 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "pancorboitalo-design"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;pancorboitalo-design&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Aplicaciones-Web-1ASI0730-2620-8130/EcoRoad-Back-End.git",
-    "accountId": "6bea2265-8320-4382-8b9b-5cf0652f946d"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Aplicaciones-Web-1ASI0730-2620-8130/EcoRoad-Back-End.git&quot;,
+    &quot;accountId&quot;: &quot;6bea2265-8320-4382-8b9b-5cf0652f946d&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/EcoRoad.Projects.Domain/Entities/RoadProject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EcoRoad-platform/Program.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -66,24 +51,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "cidr.known.project.marker": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "ft-Project-and-Road-Site-Management",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ft-Project-and-Road-Site-Management&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="2a086136-58f2-40f2-8e8a-1c54581451b6" name="Changes" comment="" />
@@ -105,7 +90,8 @@
     <MESSAGE value="feat(projects): add domain entities and repository interfaces" />
     <MESSAGE value="feat(projects): add db context and entity configurations" />
     <MESSAGE value="feat(projects): implement infrastructure repositories" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(projects): implement infrastructure repositories" />
+    <MESSAGE value="refactor(projects): align bounded context with modular monolith layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor(projects): align bounded context with modular monolith layout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
