@@ -10,7 +10,24 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a086136-58f2-40f2-8e8a-1c54581451b6" name="Changes" comment="" />
+    <list default="true" id="2a086136-58f2-40f2-8e8a-1c54581451b6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/EcoRoad.Projects.Domain.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Entities/RoadProject.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Entities/RoadSection.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Entities/WorkFront.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Repositories/IRoadProjectRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Repositories/IRoadSectionRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Domain/Repositories/IWorkFrontRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Data/Configurations/RoadProjectConfiguration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Data/Configurations/RoadSectionConfiguration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Data/Configurations/WorkFrontConfiguration.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Data/ProjectDbContext.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/EcoRoad.Projects.Infrastructure.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Repositories/RoadProjectRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Repositories/RoadSectionRepository.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EcoRoad.Projects.Infrastructure/Repositories/WorkFrontRepository.cs" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +103,9 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="chore(rider): add shared IDE project settings" />
     <MESSAGE value="feat(projects): add domain entities and repository interfaces" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(projects): add domain entities and repository interfaces" />
+    <MESSAGE value="feat(projects): add db context and entity configurations" />
+    <MESSAGE value="feat(projects): implement infrastructure repositories" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(projects): implement infrastructure repositories" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
