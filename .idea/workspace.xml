@@ -36,6 +36,9 @@
     "accountId": "6bea2265-8320-4382-8b9b-5cf0652f946d"
   }
 }]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/EcoRoad.Projects.Domain/Entities/RoadProject.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5,
@@ -82,7 +85,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="chore(rider): add shared IDE project settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(rider): add shared IDE project settings" />
+    <MESSAGE value="feat(projects): add domain entities and repository interfaces" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(projects): add domain entities and repository interfaces" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
