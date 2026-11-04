@@ -1,0 +1,53 @@
+# Environmental Monitoring requests.
+# Run them in order from Rider or Visual Studio. The demo data is seeded in Development.
+@host = http://localhost:5000
+
+### List the threshold profiles
+GET {{host}}/api/monitoring/threshold-profiles
+
+> {% client.global.set("profileId", response.body[0].id); %}
+
+### Update the thresholds of a maximum profile
+PUT {{host}}/api/monitoring/threshold-profiles/{{profileId}}/thresholds
+Content-Type: application/json
+
+{
+  "kind": "Maximum",
+  "warningThreshold": 100,
+  "criticalThreshold": 150
+}
+
+### Capture a sensor reading (telemetry)
+POST {{host}}/api/monitoring/measurements/telemetry
+Content-Type: application/json
+
+{
+  "projectId": "prj-lima-canta",
+  "sectionId": "lim-01",
+  "monitoringPointId": "pt-lim-01",
+  "sensorId": "sen-lim-01-pm10",
+  "parameterType": "AirQuality",
+  "value": 128.4
+}
+
+### Record a manual field measurement
+POST {{host}}/api/monitoring/measurements/manual
+Content-Type: application/json
+
+{
+  "projectId": "prj-lima-canta",
+  "sectionId": "lim-04",
+  "operatorId": "usr-ana",
+  "parameterType": "WaterQuality",
+  "value": 7.2,
+  "notes": "Sample taken at the drainage outlet."
+}
+
+### Project dashboard
+GET {{host}}/api/monitoring/projects/prj-lima-canta/dashboard
+
+### History of PM10 in a section
+GET {{host}}/api/monitoring/projects/prj-lima-canta/history?parameterType=AirQuality&sectionId=lim-03&from=2026-10-01&to=2026-12-31
+
+### Invalid range, returns 422 INVALID_HISTORY_FILTERS
+GET {{host}}/api/monitoring/projects/prj-lima-canta/history?parameterType=AirQuality&from=2026-12-31&to=2026-10-01

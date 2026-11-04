@@ -1,4 +1,7 @@
 using EcoRoad.Iam.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
+using EcoRoad.Assets.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
+using EcoRoad.Monitoring.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
+using EcoRoad.Incidents.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Interceptors;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,5 +33,8 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(builder);
         builder.ApplyIamConfiguration();
+        builder.ApplyAssetsConfiguration();
+        builder.ApplyMonitoringConfiguration();
+        builder.ApplyIncidentsConfiguration();
     }
 }
