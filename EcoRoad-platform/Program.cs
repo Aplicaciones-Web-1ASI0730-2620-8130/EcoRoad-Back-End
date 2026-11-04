@@ -14,6 +14,12 @@ using EcoRoad.Incidents.Application.Internal.QueryServices;
 using EcoRoad.Incidents.Application.QueryServices;
 using EcoRoad.Incidents.Domain.Repositories;
 using EcoRoad.Incidents.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using EcoRoad.Monitoring.Application.CommandServices;
+using EcoRoad.Monitoring.Application.Internal.CommandServices;
+using EcoRoad.Monitoring.Application.Internal.QueryServices;
+using EcoRoad.Monitoring.Application.QueryServices;
+using EcoRoad.Monitoring.Domain.Repositories;
+using EcoRoad.Monitoring.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Shared.Domain.Repositories;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
@@ -80,6 +86,15 @@ builder.Services.AddScoped<ISensorQueryService, SensorQueryService>();
 builder.Services.AddScoped<IAssetsContextFacade, AssetsContextFacade>();
 builder.Services.AddScoped<AssetsSampleDataSeeder>();
 
+// Environmental Monitoring bounded context dependency injection.
+builder.Services.AddScoped<IThresholdProfileRepository, ThresholdProfileRepository>();
+builder.Services.AddScoped<IEnvironmentalMeasurementRepository, EnvironmentalMeasurementRepository>();
+builder.Services.AddScoped<IThresholdProfileCommandService, ThresholdProfileCommandService>();
+builder.Services.AddScoped<IEnvironmentalMeasurementCommandService, EnvironmentalMeasurementCommandService>();
+builder.Services.AddScoped<IThresholdProfileQueryService, ThresholdProfileQueryService>();
+builder.Services.AddScoped<IEnvironmentalMeasurementQueryService, EnvironmentalMeasurementQueryService>();
+builder.Services.AddScoped<MonitoringSampleDataSeeder>();
+
 // Incident and Remediation Management bounded context dependency injection.
 builder.Services.AddScoped<IEnvironmentalIncidentRepository, EnvironmentalIncidentRepository>();
 builder.Services.AddScoped<IEnvironmentalIncidentCommandService, EnvironmentalIncidentCommandService>();
@@ -99,6 +114,9 @@ using (var scope = app.Services.CreateScope())
     {
         var assetsSeeder = scope.ServiceProvider.GetRequiredService<AssetsSampleDataSeeder>();
         await assetsSeeder.SeedIfEmptyAsync();
+
+        var monitoringSeeder = scope.ServiceProvider.GetRequiredService<MonitoringSampleDataSeeder>();
+        await monitoringSeeder.SeedIfEmptyAsync();
 
         var incidentsSeeder = scope.ServiceProvider.GetRequiredService<IncidentsSampleDataSeeder>();
         await incidentsSeeder.SeedIfEmptyAsync();
