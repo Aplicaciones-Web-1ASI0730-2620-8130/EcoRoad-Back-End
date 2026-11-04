@@ -1,5 +1,11 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
+using EcoRoad.Incidents.Application.CommandServices;
+using EcoRoad.Incidents.Application.Internal.CommandServices;
+using EcoRoad.Incidents.Application.Internal.QueryServices;
+using EcoRoad.Incidents.Application.QueryServices;
+using EcoRoad.Incidents.Domain.Repositories;
+using EcoRoad.Incidents.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Shared.Domain.Repositories;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
@@ -28,7 +34,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "EcoRoad API",
         Version = "v1",
-        Description = "EcoRoad web services."
+        Description = "EcoRoad web services: Incident and Remediation Management bounded context."
     });
 
     var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
@@ -55,7 +61,27 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Shared kernel dependency injection.
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+// Incident and Remediation Management bounded context dependency injection.
+builder.Services.AddScoped<IEnvironmentalIncidentRepository, EnvironmentalIncidentRepository>();
+builder.Services.AddScoped<IEnvironmentalIncidentCommandService, EnvironmentalIncidentCommandService>();
+builder.Services.AddScoped<ICorrectiveActionCommandService, CorrectiveActionCommandService>();
+builder.Services.AddScoped<IEnvironmentalIncidentQueryService, EnvironmentalIncidentQueryService>();
+builder.Services.AddScoped<IncidentsSampleDataSeeder>();
+
 var app = builder.Build();
+
+// Apply pending migrations and, in development, load the demo data.
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
+
+    if (app.Environment.IsDevelopment())
+    {
+        var incidentsSeeder = scope.ServiceProvider.GetRequiredService<IncidentsSampleDataSeeder>();
+        await incidentsSeeder.SeedIfEmptyAsync();
+    }
+}
 
 // The global exception handler must be the first middleware of the pipeline.
 app.UseGlobalExceptionHandler();
