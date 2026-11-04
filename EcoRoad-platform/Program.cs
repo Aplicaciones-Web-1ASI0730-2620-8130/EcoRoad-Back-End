@@ -1,5 +1,18 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
+using EcoRoad.Iam.Application.Acl;
+using EcoRoad.Iam.Application.CommandServices;
+using EcoRoad.Iam.Application.Internal.CommandServices;
+using EcoRoad.Iam.Application.Internal.OutboundServices;
+using EcoRoad.Iam.Application.Internal.QueryServices;
+using EcoRoad.Iam.Application.QueryServices;
+using EcoRoad.Iam.Domain.Repositories;
+using EcoRoad.Iam.Infrastructure.Hashing.BCrypt.Services;
+using EcoRoad.Iam.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using EcoRoad.Iam.Infrastructure.Pipeline.Middleware.Extensions;
+using EcoRoad.Iam.Infrastructure.Tokens.Jwt.Configuration;
+using EcoRoad.Iam.Infrastructure.Tokens.Jwt.Services;
+using EcoRoad.Iam.Interfaces.Acl;
 using EcoRoad.Shared.Domain.Repositories;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
@@ -28,7 +41,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "EcoRoad API",
         Version = "v1",
-        Description = "EcoRoad web services."
+        Description = "EcoRoad web services: Identity and Access Management bounded context."
     });
 
     var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
@@ -55,7 +68,33 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Shared kernel dependency injection.
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+// Identity and Access Management bounded context dependency injection.
+builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserInvitationRepository, UserInvitationRepository>();
+builder.Services.AddScoped<IHashingService, HashingService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserCommandService, UserCommandService>();
+builder.Services.AddScoped<IUserInvitationCommandService, UserInvitationCommandService>();
+builder.Services.AddScoped<IUserQueryService, UserQueryService>();
+builder.Services.AddScoped<IUserInvitationQueryService, UserInvitationQueryService>();
+builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
+builder.Services.AddScoped<IamSampleDataSeeder>();
+
 var app = builder.Build();
+
+// Apply pending migrations and, in development, load the demo data.
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.Migrate();
+
+    if (app.Environment.IsDevelopment())
+    {
+        var iamSeeder = scope.ServiceProvider.GetRequiredService<IamSampleDataSeeder>();
+        await iamSeeder.SeedIfEmptyAsync();
+    }
+}
 
 // The global exception handler must be the first middleware of the pipeline.
 app.UseGlobalExceptionHandler();
@@ -64,6 +103,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors();
+app.UseRequestAuthorization();
 
 app.MapControllers();
 app.Run();
