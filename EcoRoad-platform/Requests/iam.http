@@ -1,0 +1,95 @@
+# Identity and Access Management requests.
+# Run them in order from Rider or Visual Studio. The demo data is seeded in Development.
+@host = http://localhost:5000
+@password = EcoRoadDemo123!
+
+### Register the first administrator of a new company
+POST {{host}}/api/iam/sign-up
+Content-Type: application/json
+
+{
+  "companyId": "acme-construction",
+  "name": "Rosa Quispe",
+  "email": "rosa.quispe@acme.pe",
+  "password": "Acme2026Secure"
+}
+
+### Sign in with the seeded demo administrator
+# @name signIn
+POST {{host}}/api/iam/sessions
+Content-Type: application/json
+
+{
+  "companyId": "demo-company",
+  "email": "c.mendoza@empresa.pe",
+  "password": "{{password}}"
+}
+
+> {% client.global.set("token", response.body.token); %}
+
+### Read the current session
+GET {{host}}/api/iam/sessions/current
+Authorization: Bearer {{token}}
+
+### List the collaborators of the company
+GET {{host}}/api/iam/users
+Authorization: Bearer {{token}}
+
+### Invite a collaborator
+# @name invite
+POST {{host}}/api/iam/invitations
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Jorge Ramos",
+  "email": "jorge.ramos@empresa.pe",
+  "role": "Inspector"
+}
+
+> {% client.global.set("invitationId", response.body.id); %}
+
+### List the pending invitations
+GET {{host}}/api/iam/invitations?status=Pending
+Authorization: Bearer {{token}}
+
+### Accept the invitation (anonymous, done by the invited person)
+# @name accept
+POST {{host}}/api/iam/invitations/{{invitationId}}/acceptance
+Content-Type: application/json
+
+{
+  "password": "Jorge2026Secure"
+}
+
+> {% client.global.set("userId", response.body.id); %}
+
+### Grant access to the new collaborator
+POST {{host}}/api/iam/users/{{userId}}/grant
+Authorization: Bearer {{token}}
+
+### Assign a role (permissions are reset to the role defaults)
+PUT {{host}}/api/iam/users/{{userId}}/role
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "role": "SiteDirector"
+}
+
+### Replace the permissions
+PUT {{host}}/api/iam/users/{{userId}}/permissions
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "permissions": ["ViewProjects", "ConsultAlerts", "RegisterFieldEvidence"]
+}
+
+### Revoke access (existing sessions of the collaborator stop working)
+POST {{host}}/api/iam/users/{{userId}}/revoke
+Authorization: Bearer {{token}}
+
+### End the session
+DELETE {{host}}/api/iam/sessions/current
+Authorization: Bearer {{token}}
