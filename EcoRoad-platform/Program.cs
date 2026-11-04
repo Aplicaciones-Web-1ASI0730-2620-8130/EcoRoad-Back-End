@@ -8,6 +8,12 @@ using EcoRoad.Assets.Application.QueryServices;
 using EcoRoad.Assets.Domain.Repositories;
 using EcoRoad.Assets.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Assets.Interfaces.Acl;
+using EcoRoad.Incidents.Application.CommandServices;
+using EcoRoad.Incidents.Application.Internal.CommandServices;
+using EcoRoad.Incidents.Application.Internal.QueryServices;
+using EcoRoad.Incidents.Application.QueryServices;
+using EcoRoad.Incidents.Domain.Repositories;
+using EcoRoad.Incidents.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Shared.Domain.Repositories;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
@@ -36,7 +42,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "EcoRoad API",
         Version = "v1",
-        Description = "EcoRoad web services: Monitoring Asset and Deployment bounded context."
+        Description = "EcoRoad web services (modular monolith with a bounded context per module)."
     });
 
     var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
@@ -74,6 +80,13 @@ builder.Services.AddScoped<ISensorQueryService, SensorQueryService>();
 builder.Services.AddScoped<IAssetsContextFacade, AssetsContextFacade>();
 builder.Services.AddScoped<AssetsSampleDataSeeder>();
 
+// Incident and Remediation Management bounded context dependency injection.
+builder.Services.AddScoped<IEnvironmentalIncidentRepository, EnvironmentalIncidentRepository>();
+builder.Services.AddScoped<IEnvironmentalIncidentCommandService, EnvironmentalIncidentCommandService>();
+builder.Services.AddScoped<ICorrectiveActionCommandService, CorrectiveActionCommandService>();
+builder.Services.AddScoped<IEnvironmentalIncidentQueryService, EnvironmentalIncidentQueryService>();
+builder.Services.AddScoped<IncidentsSampleDataSeeder>();
+
 var app = builder.Build();
 
 // Apply pending migrations and, in development, load the demo data.
@@ -86,6 +99,9 @@ using (var scope = app.Services.CreateScope())
     {
         var assetsSeeder = scope.ServiceProvider.GetRequiredService<AssetsSampleDataSeeder>();
         await assetsSeeder.SeedIfEmptyAsync();
+
+        var incidentsSeeder = scope.ServiceProvider.GetRequiredService<IncidentsSampleDataSeeder>();
+        await incidentsSeeder.SeedIfEmptyAsync();
     }
 }
 
