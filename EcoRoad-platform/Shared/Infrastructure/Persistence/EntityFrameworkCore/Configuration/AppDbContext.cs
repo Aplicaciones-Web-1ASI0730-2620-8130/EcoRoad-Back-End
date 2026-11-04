@@ -1,3 +1,4 @@
+using EcoRoad.Iam.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 using EcoRoad.Assets.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 using EcoRoad.Monitoring.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 using EcoRoad.Incidents.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
@@ -31,6 +32,7 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.ApplyIamConfiguration();
         builder.ApplyAssetsConfiguration();
         builder.ApplyMonitoringConfiguration();
         builder.ApplyIncidentsConfiguration();

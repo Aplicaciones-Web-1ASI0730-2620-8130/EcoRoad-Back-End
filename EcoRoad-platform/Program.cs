@@ -8,6 +8,19 @@ using EcoRoad.Assets.Application.QueryServices;
 using EcoRoad.Assets.Domain.Repositories;
 using EcoRoad.Assets.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Assets.Interfaces.Acl;
+using EcoRoad.Iam.Application.Acl;
+using EcoRoad.Iam.Application.CommandServices;
+using EcoRoad.Iam.Application.Internal.CommandServices;
+using EcoRoad.Iam.Application.Internal.OutboundServices;
+using EcoRoad.Iam.Application.Internal.QueryServices;
+using EcoRoad.Iam.Application.QueryServices;
+using EcoRoad.Iam.Domain.Repositories;
+using EcoRoad.Iam.Infrastructure.Hashing.BCrypt.Services;
+using EcoRoad.Iam.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using EcoRoad.Iam.Infrastructure.Pipeline.Middleware.Extensions;
+using EcoRoad.Iam.Infrastructure.Tokens.Jwt.Configuration;
+using EcoRoad.Iam.Infrastructure.Tokens.Jwt.Services;
+using EcoRoad.Iam.Interfaces.Acl;
 using EcoRoad.Incidents.Application.CommandServices;
 using EcoRoad.Incidents.Application.Internal.CommandServices;
 using EcoRoad.Incidents.Application.Internal.QueryServices;
@@ -75,6 +88,19 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Shared kernel dependency injection.
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+// Identity and Access Management bounded context dependency injection.
+builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserInvitationRepository, UserInvitationRepository>();
+builder.Services.AddScoped<IHashingService, HashingService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUserCommandService, UserCommandService>();
+builder.Services.AddScoped<IUserInvitationCommandService, UserInvitationCommandService>();
+builder.Services.AddScoped<IUserQueryService, UserQueryService>();
+builder.Services.AddScoped<IUserInvitationQueryService, UserInvitationQueryService>();
+builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
+builder.Services.AddScoped<IamSampleDataSeeder>();
+
 // Monitoring Asset and Deployment bounded context dependency injection.
 builder.Services.AddScoped<IMonitoringPointRepository, MonitoringPointRepository>();
 builder.Services.AddScoped<ISensorRepository, SensorRepository>();
@@ -112,6 +138,9 @@ using (var scope = app.Services.CreateScope())
 
     if (app.Environment.IsDevelopment())
     {
+        var iamSeeder = scope.ServiceProvider.GetRequiredService<IamSampleDataSeeder>();
+        await iamSeeder.SeedIfEmptyAsync();
+
         var assetsSeeder = scope.ServiceProvider.GetRequiredService<AssetsSampleDataSeeder>();
         await assetsSeeder.SeedIfEmptyAsync();
 
@@ -130,6 +159,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors();
+app.UseRequestAuthorization();
 
 app.MapControllers();
 app.Run();
