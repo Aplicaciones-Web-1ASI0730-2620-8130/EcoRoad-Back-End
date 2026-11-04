@@ -1,5 +1,13 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
+using EcoRoad.Assets.Application.Acl;
+using EcoRoad.Assets.Application.CommandServices;
+using EcoRoad.Assets.Application.Internal.CommandServices;
+using EcoRoad.Assets.Application.Internal.QueryServices;
+using EcoRoad.Assets.Application.QueryServices;
+using EcoRoad.Assets.Domain.Repositories;
+using EcoRoad.Assets.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using EcoRoad.Assets.Interfaces.Acl;
 using EcoRoad.Incidents.Application.CommandServices;
 using EcoRoad.Incidents.Application.Internal.CommandServices;
 using EcoRoad.Incidents.Application.Internal.QueryServices;
@@ -34,7 +42,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "EcoRoad API",
         Version = "v1",
-        Description = "EcoRoad web services: Incident and Remediation Management bounded context."
+        Description = "EcoRoad web services (modular monolith with a bounded context per module)."
     });
 
     var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
@@ -61,6 +69,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Shared kernel dependency injection.
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+// Monitoring Asset and Deployment bounded context dependency injection.
+builder.Services.AddScoped<IMonitoringPointRepository, MonitoringPointRepository>();
+builder.Services.AddScoped<ISensorRepository, SensorRepository>();
+builder.Services.AddScoped<ISensorAssignmentRepository, SensorAssignmentRepository>();
+builder.Services.AddScoped<IMonitoringPointCommandService, MonitoringPointCommandService>();
+builder.Services.AddScoped<ISensorCommandService, SensorCommandService>();
+builder.Services.AddScoped<IMonitoringPointQueryService, MonitoringPointQueryService>();
+builder.Services.AddScoped<ISensorQueryService, SensorQueryService>();
+builder.Services.AddScoped<IAssetsContextFacade, AssetsContextFacade>();
+builder.Services.AddScoped<AssetsSampleDataSeeder>();
+
 // Incident and Remediation Management bounded context dependency injection.
 builder.Services.AddScoped<IEnvironmentalIncidentRepository, EnvironmentalIncidentRepository>();
 builder.Services.AddScoped<IEnvironmentalIncidentCommandService, EnvironmentalIncidentCommandService>();
@@ -78,6 +97,9 @@ using (var scope = app.Services.CreateScope())
 
     if (app.Environment.IsDevelopment())
     {
+        var assetsSeeder = scope.ServiceProvider.GetRequiredService<AssetsSampleDataSeeder>();
+        await assetsSeeder.SeedIfEmptyAsync();
+
         var incidentsSeeder = scope.ServiceProvider.GetRequiredService<IncidentsSampleDataSeeder>();
         await incidentsSeeder.SeedIfEmptyAsync();
     }
