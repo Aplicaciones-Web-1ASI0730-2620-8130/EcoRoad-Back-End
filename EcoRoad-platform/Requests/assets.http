@@ -1,0 +1,76 @@
+# Monitoring Asset and Deployment requests.
+# Run them in order from Rider or Visual Studio. The demo data is seeded in Development.
+@host = http://localhost:5000
+
+### Fleet indicators
+GET {{host}}/api/assets/summary
+
+### List the monitoring points of a road project
+GET {{host}}/api/assets/points?projectId=prj-lima-canta
+
+### Register a monitoring point
+# @name point
+POST {{host}}/api/assets/points
+Content-Type: application/json
+
+{
+  "projectId": "prj-lima-canta",
+  "sectionId": "lim-04",
+  "name": "Estacion Obrajillo",
+  "kilometerPost": "PK 98+500",
+  "latitude": -11.4475,
+  "longitude": -76.6204
+}
+
+> {% client.global.set("pointId", response.body.id); %}
+
+### Register a sensor in stock
+# @name sensor
+POST {{host}}/api/assets/sensors
+Content-Type: application/json
+
+{
+  "name": "Sonometro clase 1",
+  "serialNumber": "ECO-NOISE-010",
+  "type": "Noise",
+  "model": "SL-4033"
+}
+
+> {% client.global.set("sensorId", response.body.id); %}
+
+### Install the sensor at the point
+POST {{host}}/api/assets/sensors/{{sensorId}}/assignment
+Content-Type: application/json
+
+{
+  "monitoringPointId": "{{pointId}}"
+}
+
+### Register the calibration
+POST {{host}}/api/assets/sensors/{{sensorId}}/calibration
+Content-Type: application/json
+
+{
+  "validUntil": "2027-06-30T00:00:00Z"
+}
+
+### Activate the sensor (canReport becomes true)
+POST {{host}}/api/assets/sensors/{{sensorId}}/activation
+
+### Consult the sensor
+GET {{host}}/api/assets/sensors/{{sensorId}}
+
+### Search the inventory
+GET {{host}}/api/assets/sensors?status=Active&search=ECO
+
+### Installation history of the sensor
+GET {{host}}/api/assets/sensors/{{sensorId}}/assignments
+
+### Deactivate the sensor
+POST {{host}}/api/assets/sensors/{{sensorId}}/deactivation
+
+### Release the sensor back to stock
+POST {{host}}/api/assets/sensors/{{sensorId}}/release
+
+### Disable the point (it keeps its deployment history)
+POST {{host}}/api/assets/points/{{pointId}}/disablement
