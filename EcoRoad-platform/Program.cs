@@ -26,9 +26,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(connectionString);
 });
 
+builder.Services.AddScoped<IDeviationAssessmentRepository, DeviationAssessmentRepository>();
 builder.Services.AddScoped<IAlertRepository, AlertRepository>();
 builder.Services.AddScoped<IAlertingCommandService, AlertingCommandService>();
 builder.Services.AddScoped<IAlertingQueryService, AlertingQueryService>();
+builder.Services.AddScoped<AlertingSampleDataSeeder>();
 
 var app = builder.Build();
 

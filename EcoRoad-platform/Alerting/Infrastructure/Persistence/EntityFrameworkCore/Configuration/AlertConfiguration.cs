@@ -66,8 +66,10 @@ public class AlertConfiguration : IEntityTypeConfiguration<Alert>
             .HasMaxLength(100)
             .IsRequired(false);
 
-        builder.HasIndex(alert => alert.AssessmentId)
-            .IsUnique();
+        builder.HasOne<DeviationAssessment>()
+            .WithOne()
+            .HasForeignKey<Alert>(alert => alert.AssessmentId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(alert => alert.MonitoringPointId);
         builder.HasIndex(alert => alert.Status);
