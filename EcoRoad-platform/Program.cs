@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Swashbuckle.AspNetCore.Annotations;
 using EcoRoad.Alerting.Application.CommandServices;
 using EcoRoad.Alerting.Application.Internal.CommandServices;
 using EcoRoad.Alerting.Application.Internal.QueryServices;
@@ -16,7 +17,10 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.EnableAnnotations();
+});
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' was not found.");

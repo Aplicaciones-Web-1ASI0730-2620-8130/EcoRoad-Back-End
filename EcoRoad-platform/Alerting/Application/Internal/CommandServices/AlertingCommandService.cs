@@ -35,7 +35,7 @@ public class AlertingCommandService : IAlertingCommandService
 
         if (assessment.MeasuredValue <= assessment.ThresholdValue)
         {
-            return new ThresholdEvaluationResult(false, false, null);
+            return new ThresholdEvaluationResult(false, false, assessment, null);
         }
 
         var alert = await RaiseAsync(
@@ -46,7 +46,7 @@ public class AlertingCommandService : IAlertingCommandService
                 command.Message),
             cancellationToken);
 
-        return new ThresholdEvaluationResult(true, assessment.IsCritical, alert);
+        return new ThresholdEvaluationResult(true, assessment.IsCritical, assessment, alert);
     }
 
     public async Task<DeviationAssessment> Handle(
