@@ -1,3 +1,6 @@
 namespace EcoRoad.Alerting.Domain.Model.Commands;
 
-public record AcknowledgeAlertCommand(string AlertId, string AcknowledgedBy);
+/// <summary>
+///     Acknowledges an alert on behalf of a user.
+/// </summary>
+public record AcknowledgeAlertCommand(string AlertId, string UserId);

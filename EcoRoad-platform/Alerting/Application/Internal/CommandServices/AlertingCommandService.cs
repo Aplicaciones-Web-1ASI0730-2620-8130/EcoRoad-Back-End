@@ -51,7 +51,7 @@ public class AlertingCommandService : IAlertingCommandService
             throw new AlertingRuleException("Alert was not found.", notFound: true);
         }
 
-        alert.AcknowledgeAlert(command.AcknowledgedBy);
+        alert.AcknowledgeAlert(command.UserId);
         await _alerts.UpdateAsync(alert, cancellationToken);
         return alert;
     }

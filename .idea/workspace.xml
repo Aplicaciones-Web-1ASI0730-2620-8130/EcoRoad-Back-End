@@ -10,30 +10,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a0f0600-6682-493f-a23a-6b6ea70362b8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Application/CommandServices/IAlertingCommandService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Application/CommandServices/IAlertingCommandService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Application/Internal/CommandServices/AlertingCommandService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Application/Internal/CommandServices/AlertingCommandService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Application/Internal/QueryServices/AlertingQueryService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Application/Internal/QueryServices/AlertingQueryService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/Aggregates/Alert.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/Aggregates/Alert.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/Aggregates/AlertRule.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/Commands/EvaluateThresholdDeviationCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/Commands/EvaluateThresholdDeviationCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/Commands/RegisterAlertRuleCommand.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/Queries/ActiveAlertView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/Queries/ActiveAlertView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/ValueObjects/AlertSeverity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/ValueObjects/AlertSeverity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/ValueObjects/AlertStatus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/ValueObjects/AlertStatus.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/ValueObjects/DeviationAssessment.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Model/ValueObjects/TimeBand.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Domain/Repositories/IAlertRuleRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Infrastructure/Persistence/EntityFrameworkCore/Configuration/AlertConfiguration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Infrastructure/Persistence/EntityFrameworkCore/Configuration/AlertConfiguration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Infrastructure/Persistence/EntityFrameworkCore/Configuration/AlertRuleConfiguration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Infrastructure/Persistence/EntityFrameworkCore/Configuration/Extensions/ModelBuilderExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Infrastructure/Persistence/EntityFrameworkCore/Configuration/Extensions/ModelBuilderExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Infrastructure/Persistence/EntityFrameworkCore/Repositories/AlertRuleRepository.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Interfaces/Rest/AlertRulesController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Interfaces/Rest/Resources/AlertingResources.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Interfaces/Rest/Resources/AlertingResources.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Interfaces/Rest/Transform/AlertingAssemblers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Alerting/Interfaces/Rest/Transform/AlertingAssemblers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EcoRoad-platform/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EcoRoad-platform/Program.cs" afterDir="false" />
-    </list>
+    <list default="true" id="2a0f0600-6682-493f-a23a-6b6ea70362b8" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
