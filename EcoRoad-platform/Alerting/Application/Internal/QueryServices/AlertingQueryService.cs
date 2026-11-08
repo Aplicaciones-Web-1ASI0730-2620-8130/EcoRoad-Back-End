@@ -17,7 +17,7 @@ public class AlertingQueryService : IAlertingQueryService
         GetActiveAlertsQuery query,
         CancellationToken cancellationToken = default)
     {
-        var alerts = await _alerts.GetActiveAsync(cancellationToken);
+        var alerts = await _alerts.ListActiveAsync(cancellationToken);
         return alerts
             .Select(alert => new ActiveAlertView(
                 alert.Id,

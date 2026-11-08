@@ -15,18 +15,36 @@ public class AlertRepository : IAlertRepository
         _context = context;
     }
 
-    public async Task<Alert?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+    public async Task<Alert?> FindByIdAsync(string alertId, CancellationToken cancellationToken = default)
     {
         return await _context.Set<Alert>()
             .AsNoTracking()
-            .FirstOrDefaultAsync(alert => alert.Id == id, cancellationToken);
+            .FirstOrDefaultAsync(alert => alert.Id == alertId, cancellationToken);
     }
 
-    public async Task<IReadOnlyList<Alert>> GetActiveAsync(CancellationToken cancellationToken = default)
+    public async Task<IReadOnlyList<Alert>> ListActiveAsync(CancellationToken cancellationToken = default)
     {
-        return await _context.Set<Alert>()
-            .AsNoTracking()
-            .Where(alert => alert.Status == AlertStatus.Raised)
+        return await ListAsync(null, AlertStatus.Raised, cancellationToken);
+    }
+
+    public async Task<IReadOnlyList<Alert>> ListAsync(
+        string? monitoringPointId,
+        AlertStatus? status,
+        CancellationToken cancellationToken = default)
+    {
+        var query = _context.Set<Alert>().AsNoTracking();
+
+        if (!string.IsNullOrWhiteSpace(monitoringPointId))
+        {
+            query = query.Where(alert => alert.MonitoringPointId == monitoringPointId);
+        }
+
+        if (status.HasValue)
+        {
+            query = query.Where(alert => alert.Status == status.Value);
+        }
+
+        return await query
             .OrderByDescending(alert => alert.RaisedAt)
             .ToListAsync(cancellationToken);
     }

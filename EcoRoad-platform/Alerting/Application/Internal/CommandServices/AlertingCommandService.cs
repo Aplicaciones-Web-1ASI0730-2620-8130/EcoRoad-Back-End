@@ -45,7 +45,7 @@ public class AlertingCommandService : IAlertingCommandService
         AcknowledgeAlertCommand command,
         CancellationToken cancellationToken = default)
     {
-        var alert = await _alerts.GetByIdAsync(command.AlertId, cancellationToken);
+        var alert = await _alerts.FindByIdAsync(command.AlertId, cancellationToken);
         if (alert == null)
         {
             throw new AlertingRuleException("Alert was not found.", notFound: true);
