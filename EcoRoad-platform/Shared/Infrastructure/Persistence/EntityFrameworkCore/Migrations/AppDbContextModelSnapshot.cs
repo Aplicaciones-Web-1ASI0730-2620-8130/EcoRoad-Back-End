@@ -229,6 +229,100 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
                     b.ToTable("sensor_assignments", (string)null);
                 });
 
+            modelBuilder.Entity("EcoRoad.Commercial.Domain.Model.Aggregates.CompanyAccount", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)")
+                        .HasColumnName("code");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("Segment")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("segment");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("company_accounts", (string)null);
+                });
+
+            modelBuilder.Entity("EcoRoad.Commercial.Domain.Model.Aggregates.Subscription", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime?>("ActivatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("activated_at");
+
+                    b.Property<string>("BillingCycle")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("billing_cycle");
+
+                    b.Property<string>("CompanyAccountId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("company_account_id");
+
+                    b.Property<DateTime?>("CurrentPeriodEnd")
+                        .HasColumnType("datetime")
+                        .HasColumnName("current_period_end");
+
+                    b.Property<string>("Plan")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("plan");
+
+                    b.Property<DateTime>("SelectedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("selected_at");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyAccountId")
+                        .IsUnique();
+
+                    b.ToTable("subscriptions", (string)null);
+                });
+
             modelBuilder.Entity("EcoRoad.Iam.Domain.Model.Aggregates.User", b =>
                 {
                     b.Property<string>("Id")
@@ -791,6 +885,15 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
                     b.HasOne("EcoRoad.Assets.Domain.Model.Aggregates.Sensor", null)
                         .WithMany()
                         .HasForeignKey("SensorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EcoRoad.Commercial.Domain.Model.Aggregates.Subscription", b =>
+                {
+                    b.HasOne("EcoRoad.Commercial.Domain.Model.Aggregates.CompanyAccount", null)
+                        .WithMany()
+                        .HasForeignKey("CompanyAccountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

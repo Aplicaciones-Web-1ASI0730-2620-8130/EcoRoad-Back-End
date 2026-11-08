@@ -8,6 +8,12 @@ using EcoRoad.Assets.Application.QueryServices;
 using EcoRoad.Assets.Domain.Repositories;
 using EcoRoad.Assets.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Assets.Interfaces.Acl;
+using EcoRoad.Commercial.Application.CommandServices;
+using EcoRoad.Commercial.Application.Internal.CommandServices;
+using EcoRoad.Commercial.Application.Internal.QueryServices;
+using EcoRoad.Commercial.Application.QueryServices;
+using EcoRoad.Commercial.Domain.Repositories;
+using EcoRoad.Commercial.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Iam.Application.Acl;
 using EcoRoad.Iam.Application.CommandServices;
 using EcoRoad.Iam.Application.Internal.CommandServices;
@@ -127,6 +133,12 @@ builder.Services.AddScoped<IEnvironmentalIncidentCommandService, EnvironmentalIn
 builder.Services.AddScoped<ICorrectiveActionCommandService, CorrectiveActionCommandService>();
 builder.Services.AddScoped<IEnvironmentalIncidentQueryService, EnvironmentalIncidentQueryService>();
 builder.Services.AddScoped<IncidentsSampleDataSeeder>();
+
+// Commercial and Subscription Management bounded context dependency injection.
+builder.Services.AddScoped<ICompanyAccountRepository, CompanyAccountRepository>();
+builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+builder.Services.AddScoped<ICommercialCommandService, CommercialCommandService>();
+builder.Services.AddScoped<ICommercialQueryService, CommercialQueryService>();
 
 var app = builder.Build();
 
