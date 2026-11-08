@@ -35,25 +35,23 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
                         .HasColumnType("varchar(100)")
                         .HasColumnName("acknowledged_by");
 
-                    b.Property<string>("AlertRuleId")
+                    b.Property<string>("AssessmentId")
                         .IsRequired()
                         .HasMaxLength(36)
                         .HasColumnType("varchar(36)")
-                        .HasColumnName("alert_rule_id");
+                        .HasColumnName("assessment_id");
 
-                    b.Property<double>("LimitValue")
-                        .HasColumnType("double")
-                        .HasColumnName("limit_value");
-
-                    b.Property<double>("MeasuredValue")
-                        .HasColumnType("double")
-                        .HasColumnName("measured_value");
-
-                    b.Property<string>("Parameter")
+                    b.Property<string>("Message")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("parameter");
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("message");
+
+                    b.Property<string>("MonitoringPointId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("monitoring_point_id");
 
                     b.Property<DateTime>("RaisedAt")
                         .HasColumnType("datetime")
@@ -71,81 +69,59 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
                         .HasColumnType("varchar(30)")
                         .HasColumnName("status");
 
-                    b.Property<string>("TimeBand")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("time_band");
-
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("unit");
-
-                    b.Property<string>("WorkFrontId")
-                        .IsRequired()
-                        .HasMaxLength(36)
-                        .HasColumnType("varchar(36)")
-                        .HasColumnName("work_front_id");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AlertRuleId");
+                    b.HasIndex("AssessmentId")
+                        .IsUnique();
+
+                    b.HasIndex("MonitoringPointId");
 
                     b.HasIndex("Status");
-
-                    b.HasIndex("WorkFrontId");
 
                     b.ToTable("alerts", (string)null);
                 });
 
-            modelBuilder.Entity("EcoRoad.Alerting.Domain.Model.Aggregates.AlertRule", b =>
+            modelBuilder.Entity("EcoRoad.Alerting.Domain.Model.Aggregates.DeviationAssessment", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(36)
                         .HasColumnType("varchar(36)")
                         .HasColumnName("id");
 
-                    b.Property<double>("CriticalExcess")
+                    b.Property<DateTime>("AssessedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("assessed_at");
+
+                    b.Property<bool>("IsCritical")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("is_critical");
+
+                    b.Property<double>("MeasuredValue")
                         .HasColumnType("double")
-                        .HasColumnName("critical_excess");
+                        .HasColumnName("measured_value");
 
-                    b.Property<double>("Limit")
+                    b.Property<string>("MeasurementId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("measurement_id");
+
+                    b.Property<double>("ThresholdValue")
                         .HasColumnType("double")
-                        .HasColumnName("limit");
-
-                    b.Property<string>("Parameter")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("parameter");
-
-                    b.Property<string>("TimeBand")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("varchar(30)")
-                        .HasColumnName("time_band");
-
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)")
-                        .HasColumnName("unit");
+                        .HasColumnName("threshold_value");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Parameter", "TimeBand")
-                        .IsUnique();
+                    b.HasIndex("MeasurementId");
 
-                    b.ToTable("alert_rules", (string)null);
+                    b.ToTable("deviation_assessments", (string)null);
                 });
 
             modelBuilder.Entity("EcoRoad.Alerting.Domain.Model.Aggregates.Alert", b =>
                 {
-                    b.HasOne("EcoRoad.Alerting.Domain.Model.Aggregates.AlertRule", null)
-                        .WithMany()
-                        .HasForeignKey("AlertRuleId")
+                    b.HasOne("EcoRoad.Alerting.Domain.Model.Aggregates.DeviationAssessment", null)
+                        .WithOne()
+                        .HasForeignKey("EcoRoad.Alerting.Domain.Model.Aggregates.Alert", "AssessmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
