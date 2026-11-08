@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EcoRoad.Alerting.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 
+/// <summary>
+///     Entity Framework repository for environmental alerts.
+/// </summary>
 public class AlertRepository : IAlertRepository
 {
     private readonly AppDbContext _context;

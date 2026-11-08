@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EcoRoad.Alerting.Infrastructure.Persistence.EntityFrameworkCore.Configuration;
 
+/// <summary>
+///     Maps the Alert aggregate to alerts.
+///     Each alert is originated by exactly one deviation assessment.
+/// </summary>
 public class AlertConfiguration : IEntityTypeConfiguration<Alert>
 {
     public void Configure(EntityTypeBuilder<Alert> builder)
@@ -16,6 +20,7 @@ public class AlertConfiguration : IEntityTypeConfiguration<Alert>
             .HasColumnName("id")
             .HasColumnType("varchar(36)")
             .HasMaxLength(36)
+            .ValueGeneratedNever()
             .IsRequired();
 
         builder.Property(alert => alert.AssessmentId)

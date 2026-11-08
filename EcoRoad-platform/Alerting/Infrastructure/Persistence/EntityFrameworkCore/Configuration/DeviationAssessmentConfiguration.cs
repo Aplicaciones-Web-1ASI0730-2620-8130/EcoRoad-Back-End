@@ -19,6 +19,7 @@ public class DeviationAssessmentConfiguration : IEntityTypeConfiguration<Deviati
             .HasColumnName("id")
             .HasColumnType("varchar(36)")
             .HasMaxLength(36)
+            .ValueGeneratedNever()
             .IsRequired();
 
         builder.Property(assessment => assessment.MeasurementId)
