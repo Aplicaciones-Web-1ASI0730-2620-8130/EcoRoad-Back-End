@@ -7,7 +7,6 @@ public static class ModelBuilderExtensions
 {
     public static void ApplyAlertingConfiguration(this ModelBuilder builder)
     {
-        builder.ApplyConfiguration(new AlertRuleConfiguration());
         builder.ApplyConfiguration(new AlertConfiguration());
     }
 }

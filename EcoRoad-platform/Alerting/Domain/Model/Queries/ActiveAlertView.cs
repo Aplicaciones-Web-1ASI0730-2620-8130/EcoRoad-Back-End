@@ -4,12 +4,11 @@ namespace EcoRoad.Alerting.Domain.Model.Queries;
 
 public record ActiveAlertView(
     string Id,
-    string WorkFrontId,
-    string Parameter,
-    string Unit,
-    TimeBand TimeBand,
-    double MeasuredValue,
-    double LimitValue,
+    string AssessmentId,
+    string MonitoringPointId,
     AlertSeverity Severity,
+    AlertStatus Status,
+    string Message,
     DateTime RaisedAt,
-    bool RequiresImmediateNotification);
+    DateTime? AcknowledgedAt,
+    string? AcknowledgedBy);

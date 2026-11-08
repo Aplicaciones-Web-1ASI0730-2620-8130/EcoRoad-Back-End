@@ -5,8 +5,6 @@ namespace EcoRoad.Alerting.Application.CommandServices;
 
 public interface IAlertingCommandService
 {
-    Task<AlertRule> Handle(RegisterAlertRuleCommand command, CancellationToken cancellationToken = default);
-
     Task<ThresholdEvaluationResult> Handle(
         EvaluateThresholdDeviationCommand command,
         CancellationToken cancellationToken = default);

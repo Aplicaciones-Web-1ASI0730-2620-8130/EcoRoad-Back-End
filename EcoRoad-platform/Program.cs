@@ -26,7 +26,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySQL(connectionString);
 });
 
-builder.Services.AddScoped<IAlertRuleRepository, AlertRuleRepository>();
 builder.Services.AddScoped<IAlertRepository, AlertRepository>();
 builder.Services.AddScoped<IAlertingCommandService, AlertingCommandService>();
 builder.Services.AddScoped<IAlertingQueryService, AlertingQueryService>();

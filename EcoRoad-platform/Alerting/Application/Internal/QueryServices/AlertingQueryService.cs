@@ -21,15 +21,14 @@ public class AlertingQueryService : IAlertingQueryService
         return alerts
             .Select(alert => new ActiveAlertView(
                 alert.Id,
-                alert.WorkFrontId,
-                alert.Parameter,
-                alert.Unit,
-                alert.TimeBand,
-                alert.MeasuredValue,
-                alert.LimitValue,
+                alert.AssessmentId,
+                alert.MonitoringPointId,
                 alert.Severity,
+                alert.Status,
+                alert.Message,
                 alert.RaisedAt,
-                alert.RequiresImmediateNotification))
+                alert.AcknowledgedAt,
+                alert.AcknowledgedBy))
             .ToList();
     }
 }

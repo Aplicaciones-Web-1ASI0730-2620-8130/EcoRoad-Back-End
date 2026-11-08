@@ -18,45 +18,16 @@ public class AlertConfiguration : IEntityTypeConfiguration<Alert>
             .HasMaxLength(36)
             .IsRequired();
 
-        builder.Property(alert => alert.WorkFrontId)
-            .HasColumnName("work_front_id")
+        builder.Property(alert => alert.AssessmentId)
+            .HasColumnName("assessment_id")
             .HasColumnType("varchar(36)")
             .HasMaxLength(36)
             .IsRequired();
 
-        builder.Property(alert => alert.AlertRuleId)
-            .HasColumnName("alert_rule_id")
+        builder.Property(alert => alert.MonitoringPointId)
+            .HasColumnName("monitoring_point_id")
             .HasColumnType("varchar(36)")
             .HasMaxLength(36)
-            .IsRequired();
-
-        builder.Property(alert => alert.Parameter)
-            .HasColumnName("parameter")
-            .HasColumnType("varchar(30)")
-            .HasMaxLength(30)
-            .IsRequired();
-
-        builder.Property(alert => alert.Unit)
-            .HasColumnName("unit")
-            .HasColumnType("varchar(20)")
-            .HasMaxLength(20)
-            .IsRequired();
-
-        builder.Property(alert => alert.TimeBand)
-            .HasColumnName("time_band")
-            .HasConversion<string>()
-            .HasColumnType("varchar(30)")
-            .HasMaxLength(30)
-            .IsRequired();
-
-        builder.Property(alert => alert.MeasuredValue)
-            .HasColumnName("measured_value")
-            .HasColumnType("double")
-            .IsRequired();
-
-        builder.Property(alert => alert.LimitValue)
-            .HasColumnName("limit_value")
-            .HasColumnType("double")
             .IsRequired();
 
         builder.Property(alert => alert.Severity)
@@ -71,6 +42,12 @@ public class AlertConfiguration : IEntityTypeConfiguration<Alert>
             .HasConversion<string>()
             .HasColumnType("varchar(30)")
             .HasMaxLength(30)
+            .IsRequired();
+
+        builder.Property(alert => alert.Message)
+            .HasColumnName("message")
+            .HasColumnType("varchar(500)")
+            .HasMaxLength(500)
             .IsRequired();
 
         builder.Property(alert => alert.RaisedAt)
@@ -89,15 +66,10 @@ public class AlertConfiguration : IEntityTypeConfiguration<Alert>
             .HasMaxLength(100)
             .IsRequired(false);
 
-        builder.Ignore(alert => alert.IsActive);
-        builder.Ignore(alert => alert.RequiresImmediateNotification);
+        builder.HasIndex(alert => alert.AssessmentId)
+            .IsUnique();
 
-        builder.HasOne<AlertRule>()
-            .WithMany()
-            .HasForeignKey(alert => alert.AlertRuleId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasIndex(alert => alert.WorkFrontId);
+        builder.HasIndex(alert => alert.MonitoringPointId);
         builder.HasIndex(alert => alert.Status);
     }
 }

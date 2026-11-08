@@ -5,42 +5,16 @@ using EcoRoad.Alerting.Interfaces.Rest.Resources;
 
 namespace EcoRoad.Alerting.Interfaces.Rest.Transform;
 
-public static class RegisterAlertRuleCommandFromResourceAssembler
-{
-    public static RegisterAlertRuleCommand ToCommandFromResource(RegisterAlertRuleResource resource)
-    {
-        return new RegisterAlertRuleCommand(
-            resource.Parameter,
-            resource.Unit,
-            resource.TimeBand,
-            resource.Limit,
-            resource.CriticalExcess);
-    }
-}
-
 public static class EvaluateThresholdDeviationCommandFromResourceAssembler
 {
     public static EvaluateThresholdDeviationCommand ToCommandFromResource(EvaluateThresholdDeviationResource resource)
     {
         return new EvaluateThresholdDeviationCommand(
-            resource.WorkFrontId,
-            resource.Parameter,
-            resource.TimeBand,
-            resource.MeasuredValue);
-    }
-}
-
-public static class AlertRuleResourceFromEntityAssembler
-{
-    public static AlertRuleResource ToResourceFromEntity(AlertRule rule)
-    {
-        return new AlertRuleResource(
-            rule.Id,
-            rule.Parameter,
-            rule.Unit,
-            rule.TimeBand,
-            rule.Limit,
-            rule.CriticalExcess);
+            resource.MeasurementId,
+            resource.MonitoringPointId,
+            resource.MeasuredValue,
+            resource.ThresholdValue,
+            resource.Message);
     }
 }
 
@@ -50,19 +24,14 @@ public static class AlertResourceFromEntityAssembler
     {
         return new AlertResource(
             alert.Id,
-            alert.WorkFrontId,
-            alert.AlertRuleId,
-            alert.Parameter,
-            alert.Unit,
-            alert.TimeBand,
-            alert.MeasuredValue,
-            alert.LimitValue,
+            alert.AssessmentId,
+            alert.MonitoringPointId,
             alert.Severity,
             alert.Status,
+            alert.Message,
             alert.RaisedAt,
             alert.AcknowledgedAt,
-            alert.AcknowledgedBy,
-            alert.RequiresImmediateNotification);
+            alert.AcknowledgedBy);
     }
 }
 
@@ -83,14 +52,13 @@ public static class ActiveAlertResourceFromViewAssembler
     {
         return new ActiveAlertResource(
             view.Id,
-            view.WorkFrontId,
-            view.Parameter,
-            view.Unit,
-            view.TimeBand,
-            view.MeasuredValue,
-            view.LimitValue,
+            view.AssessmentId,
+            view.MonitoringPointId,
             view.Severity,
+            view.Status,
+            view.Message,
             view.RaisedAt,
-            view.RequiresImmediateNotification);
+            view.AcknowledgedAt,
+            view.AcknowledgedBy);
     }
 }

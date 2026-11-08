@@ -9,70 +9,33 @@ namespace EcoRoad.Alerting.Application.Internal.CommandServices;
 
 public class AlertingCommandService : IAlertingCommandService
 {
-    private readonly IAlertRuleRepository _rules;
     private readonly IAlertRepository _alerts;
 
-    public AlertingCommandService(IAlertRuleRepository rules, IAlertRepository alerts)
+    public AlertingCommandService(IAlertRepository alerts)
     {
-        _rules = rules;
         _alerts = alerts;
-    }
-
-    public async Task<AlertRule> Handle(
-        RegisterAlertRuleCommand command,
-        CancellationToken cancellationToken = default)
-    {
-        var rule = new AlertRule(
-            command.Parameter,
-            command.Unit,
-            command.TimeBand,
-            command.Limit,
-            command.CriticalExcess);
-
-        var existing = await _rules.GetByParameterAndTimeBandAsync(rule.Parameter, rule.TimeBand, cancellationToken);
-        if (existing != null)
-        {
-            throw new AlertingRuleException("An alert rule for this parameter and time band is already registered.");
-        }
-
-        await _rules.AddAsync(rule, cancellationToken);
-        return rule;
     }
 
     public async Task<ThresholdEvaluationResult> Handle(
         EvaluateThresholdDeviationCommand command,
         CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrWhiteSpace(command.Parameter))
-        {
-            throw new AlertingRuleException("Parameter is required.");
-        }
+        var assessment = DeviationAssessment.EvaluateThresholdDeviation(
+            command.MeasurementId,
+            command.MeasuredValue,
+            command.ThresholdValue);
 
-        var rule = await _rules.GetByParameterAndTimeBandAsync(
-            command.Parameter.Trim(),
-            command.TimeBand,
-            cancellationToken);
-        if (rule == null)
-        {
-            throw new AlertingRuleException("Alert rule was not found.", notFound: true);
-        }
-
-        var assessment = rule.Evaluate(command.MeasuredValue, command.TimeBand);
-        if (!assessment.IsDeviation)
+        if (assessment.MeasuredValue <= assessment.ThresholdValue)
         {
             return new ThresholdEvaluationResult(false, false, null);
         }
 
         var severity = assessment.IsCritical ? AlertSeverity.Critical : AlertSeverity.Warning;
-        var alert = new Alert(
-            command.WorkFrontId,
-            rule.Id,
-            rule.Parameter,
-            rule.Unit,
-            rule.TimeBand,
-            assessment.MeasuredValue,
-            assessment.LimitValue,
-            severity);
+        var alert = Alert.RaiseEnvironmentalAlert(
+            assessment.Id,
+            command.MonitoringPointId,
+            severity,
+            command.Message);
 
         await _alerts.AddAsync(alert, cancellationToken);
         return new ThresholdEvaluationResult(true, assessment.IsCritical, alert);
@@ -88,7 +51,7 @@ public class AlertingCommandService : IAlertingCommandService
             throw new AlertingRuleException("Alert was not found.", notFound: true);
         }
 
-        alert.Acknowledge(command.AcknowledgedBy);
+        alert.AcknowledgeAlert(command.AcknowledgedBy);
         await _alerts.UpdateAsync(alert, cancellationToken);
         return alert;
     }
