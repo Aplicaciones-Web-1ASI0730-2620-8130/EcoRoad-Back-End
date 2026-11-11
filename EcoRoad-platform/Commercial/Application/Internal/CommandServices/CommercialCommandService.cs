@@ -3,6 +3,7 @@ using EcoRoad.Commercial.Domain.Model;
 using EcoRoad.Commercial.Domain.Model.Aggregates;
 using EcoRoad.Commercial.Domain.Model.Commands;
 using EcoRoad.Commercial.Domain.Repositories;
+using EcoRoad.Shared.Domain.Repositories;
 
 namespace EcoRoad.Commercial.Application.Internal.CommandServices;
 
@@ -10,13 +11,16 @@ public class CommercialCommandService : ICommercialCommandService
 {
     private readonly ICompanyAccountRepository _accounts;
     private readonly ISubscriptionRepository _subscriptions;
+    private readonly IUnitOfWork _unitOfWork;
 
     public CommercialCommandService(
         ICompanyAccountRepository accounts,
-        ISubscriptionRepository subscriptions)
+        ISubscriptionRepository subscriptions,
+        IUnitOfWork unitOfWork)
     {
         _accounts = accounts;
         _subscriptions = subscriptions;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<CompanyAccount> Handle(
@@ -31,6 +35,7 @@ public class CommercialCommandService : ICommercialCommandService
         }
 
         await _accounts.AddAsync(account, cancellationToken);
+        await _unitOfWork.CompleteAsync(cancellationToken);
         return account;
     }
 
@@ -44,11 +49,13 @@ public class CommercialCommandService : ICommercialCommandService
         {
             var created = new Subscription(account.Id, command.Plan, command.BillingCycle);
             await _subscriptions.AddAsync(created, cancellationToken);
+            await _unitOfWork.CompleteAsync(cancellationToken);
             return created;
         }
 
         current.SelectPlan(command.Plan, command.BillingCycle);
         await _subscriptions.UpdateAsync(current, cancellationToken);
+        await _unitOfWork.CompleteAsync(cancellationToken);
         return current;
     }
 
@@ -63,6 +70,7 @@ public class CommercialCommandService : ICommercialCommandService
 
         account.EnableAccess();
         await _accounts.UpdateAsync(account, cancellationToken);
+        await _unitOfWork.CompleteAsync(cancellationToken);
         return subscription;
     }
 
@@ -74,6 +82,7 @@ public class CommercialCommandService : ICommercialCommandService
         var subscription = await FindSubscriptionAsync(account.Id, cancellationToken);
         subscription.Renew();
         await _subscriptions.UpdateAsync(subscription, cancellationToken);
+        await _unitOfWork.CompleteAsync(cancellationToken);
         return subscription;
     }
 

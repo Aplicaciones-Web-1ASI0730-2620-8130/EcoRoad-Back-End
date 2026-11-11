@@ -31,12 +31,10 @@ public class CompanyAccountRepository : ICompanyAccountRepository
     public async Task AddAsync(CompanyAccount account, CancellationToken cancellationToken = default)
     {
         await _context.Set<CompanyAccount>().AddAsync(account, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task UpdateAsync(CompanyAccount account, CancellationToken cancellationToken = default)
     {
         _context.Set<CompanyAccount>().Update(account);
-        await _context.SaveChangesAsync(cancellationToken);
     }
 }
