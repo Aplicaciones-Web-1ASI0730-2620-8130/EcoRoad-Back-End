@@ -13,13 +13,21 @@ namespace EcoRoad.Commercial.Interfaces.Rest;
 [Route("api/company-accounts")]
 public class CompanyAccountsController : ControllerBase
 {
-    private readonly ICommercialCommandService _commands;
-    private readonly ICommercialQueryService _queries;
+    private readonly ICompanyAccountCommandService _accountCommands;
+    private readonly ISubscriptionCommandService _subscriptionCommands;
+    private readonly ICompanyAccountQueryService _accountQueries;
+    private readonly ISubscriptionQueryService _subscriptionQueries;
 
-    public CompanyAccountsController(ICommercialCommandService commands, ICommercialQueryService queries)
+    public CompanyAccountsController(
+        ICompanyAccountCommandService accountCommands,
+        ISubscriptionCommandService subscriptionCommands,
+        ICompanyAccountQueryService accountQueries,
+        ISubscriptionQueryService subscriptionQueries)
     {
-        _commands = commands;
-        _queries = queries;
+        _accountCommands = accountCommands;
+        _subscriptionCommands = subscriptionCommands;
+        _accountQueries = accountQueries;
+        _subscriptionQueries = subscriptionQueries;
     }
 
     [HttpPost]
@@ -30,7 +38,7 @@ public class CompanyAccountsController : ControllerBase
         try
         {
             var command = RegisterCompanyAccountCommandFromResourceAssembler.ToCommandFromResource(resource);
-            var account = await _commands.Handle(command, cancellationToken);
+            var account = await _accountCommands.Handle(command, cancellationToken);
             var body = CompanyAccountResourceFromEntityAssembler.ToResourceFromEntity(account);
             return CreatedAtAction(nameof(GetCompanyAccount), new { companyAccountId = account.Id }, body);
         }
@@ -43,7 +51,7 @@ public class CompanyAccountsController : ControllerBase
     [HttpGet("{companyAccountId}")]
     public async Task<IActionResult> GetCompanyAccount(string companyAccountId, CancellationToken cancellationToken)
     {
-        var account = await _queries.Handle(new GetCompanyAccountQuery(companyAccountId), cancellationToken);
+        var account = await _accountQueries.Handle(new GetCompanyAccountQuery(companyAccountId), cancellationToken);
         if (account == null)
         {
             return NotFound(new { message = "Company account was not found." });
@@ -55,7 +63,7 @@ public class CompanyAccountsController : ControllerBase
     [HttpGet("{companyAccountId}/subscription")]
     public async Task<IActionResult> GetSubscription(string companyAccountId, CancellationToken cancellationToken)
     {
-        var view = await _queries.Handle(new GetSubscriptionViewQuery(companyAccountId), cancellationToken);
+        var view = await _subscriptionQueries.Handle(new GetSubscriptionViewQuery(companyAccountId), cancellationToken);
         if (view == null)
         {
             return NotFound(new { message = "Company account was not found." });
@@ -75,7 +83,7 @@ public class CompanyAccountsController : ControllerBase
             var command = SelectSubscriptionPlanCommandFromResourceAssembler.ToCommandFromResource(
                 companyAccountId,
                 resource);
-            var subscription = await _commands.Handle(command, cancellationToken);
+            var subscription = await _subscriptionCommands.Handle(command, cancellationToken);
             return Ok(SubscriptionResourceFromEntityAssembler.ToResourceFromEntity(subscription));
         }
         catch (CommercialRuleException exception)
@@ -91,7 +99,7 @@ public class CompanyAccountsController : ControllerBase
     {
         try
         {
-            var subscription = await _commands.Handle(
+            var subscription = await _subscriptionCommands.Handle(
                 new ActivateSubscriptionCommand(companyAccountId),
                 cancellationToken);
             return Ok(SubscriptionResourceFromEntityAssembler.ToResourceFromEntity(subscription));
@@ -109,7 +117,7 @@ public class CompanyAccountsController : ControllerBase
     {
         try
         {
-            var subscription = await _commands.Handle(
+            var subscription = await _subscriptionCommands.Handle(
                 new RenewSubscriptionCommand(companyAccountId),
                 cancellationToken);
             return Ok(SubscriptionResourceFromEntityAssembler.ToResourceFromEntity(subscription));

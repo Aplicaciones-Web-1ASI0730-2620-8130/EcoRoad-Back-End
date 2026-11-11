@@ -1,28 +1,20 @@
 using EcoRoad.Commercial.Application.QueryServices;
-using EcoRoad.Commercial.Domain.Model.Aggregates;
 using EcoRoad.Commercial.Domain.Model.Queries;
 using EcoRoad.Commercial.Domain.Repositories;
 
 namespace EcoRoad.Commercial.Application.Internal.QueryServices;
 
-public class CommercialQueryService : ICommercialQueryService
+public class SubscriptionQueryService : ISubscriptionQueryService
 {
     private readonly ICompanyAccountRepository _accounts;
     private readonly ISubscriptionRepository _subscriptions;
 
-    public CommercialQueryService(
+    public SubscriptionQueryService(
         ICompanyAccountRepository accounts,
         ISubscriptionRepository subscriptions)
     {
         _accounts = accounts;
         _subscriptions = subscriptions;
-    }
-
-    public Task<CompanyAccount?> Handle(
-        GetCompanyAccountQuery query,
-        CancellationToken cancellationToken = default)
-    {
-        return _accounts.GetByIdAsync(query.CompanyAccountId, cancellationToken);
     }
 
     public async Task<SubscriptionView?> Handle(

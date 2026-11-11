@@ -137,8 +137,10 @@ builder.Services.AddScoped<IncidentsSampleDataSeeder>();
 // Commercial and Subscription Management bounded context dependency injection.
 builder.Services.AddScoped<ICompanyAccountRepository, CompanyAccountRepository>();
 builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
-builder.Services.AddScoped<ICommercialCommandService, CommercialCommandService>();
-builder.Services.AddScoped<ICommercialQueryService, CommercialQueryService>();
+builder.Services.AddScoped<ICompanyAccountCommandService, CompanyAccountCommandService>();
+builder.Services.AddScoped<ISubscriptionCommandService, SubscriptionCommandService>();
+builder.Services.AddScoped<ICompanyAccountQueryService, CompanyAccountQueryService>();
+builder.Services.AddScoped<ISubscriptionQueryService, SubscriptionQueryService>();
 
 var app = builder.Build();
 

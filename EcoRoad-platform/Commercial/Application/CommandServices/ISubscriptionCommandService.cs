@@ -3,10 +3,8 @@ using EcoRoad.Commercial.Domain.Model.Commands;
 
 namespace EcoRoad.Commercial.Application.CommandServices;
 
-public interface ICommercialCommandService
+public interface ISubscriptionCommandService
 {
-    Task<CompanyAccount> Handle(RegisterCompanyAccountCommand command, CancellationToken cancellationToken = default);
-
     Task<Subscription> Handle(SelectSubscriptionPlanCommand command, CancellationToken cancellationToken = default);
 
     Task<Subscription> Handle(ActivateSubscriptionCommand command, CancellationToken cancellationToken = default);
