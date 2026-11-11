@@ -32,12 +32,24 @@ public class CompanyAccountsController : ControllerBase
             var command = RegisterCompanyAccountCommandFromResourceAssembler.ToCommandFromResource(resource);
             var account = await _commands.Handle(command, cancellationToken);
             var body = CompanyAccountResourceFromEntityAssembler.ToResourceFromEntity(account);
-            return CreatedAtAction(nameof(GetSubscription), new { companyAccountId = account.Id }, body);
+            return CreatedAtAction(nameof(GetCompanyAccount), new { companyAccountId = account.Id }, body);
         }
         catch (CommercialRuleException exception)
         {
             return MapRuleException(exception);
         }
+    }
+
+    [HttpGet("{companyAccountId}")]
+    public async Task<IActionResult> GetCompanyAccount(string companyAccountId, CancellationToken cancellationToken)
+    {
+        var account = await _queries.Handle(new GetCompanyAccountQuery(companyAccountId), cancellationToken);
+        if (account == null)
+        {
+            return NotFound(new { message = "Company account was not found." });
+        }
+
+        return Ok(CompanyAccountResourceFromEntityAssembler.ToResourceFromEntity(account));
     }
 
     [HttpGet("{companyAccountId}/subscription")]

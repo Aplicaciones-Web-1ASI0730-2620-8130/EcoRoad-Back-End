@@ -1,4 +1,5 @@
 using EcoRoad.Commercial.Application.QueryServices;
+using EcoRoad.Commercial.Domain.Model.Aggregates;
 using EcoRoad.Commercial.Domain.Model.Queries;
 using EcoRoad.Commercial.Domain.Repositories;
 
@@ -15,6 +16,13 @@ public class CommercialQueryService : ICommercialQueryService
     {
         _accounts = accounts;
         _subscriptions = subscriptions;
+    }
+
+    public Task<CompanyAccount?> Handle(
+        GetCompanyAccountQuery query,
+        CancellationToken cancellationToken = default)
+    {
+        return _accounts.GetByIdAsync(query.CompanyAccountId, cancellationToken);
     }
 
     public async Task<SubscriptionView?> Handle(
