@@ -13,6 +13,7 @@ public class Subscription
     {
         Id = Guid.NewGuid().ToString();
         CompanyAccountId = CommercialRules.Require(companyAccountId, "Company account id", 36);
+        ValidateSelection(plan, billingCycle);
         Plan = plan;
         BillingCycle = billingCycle;
         Status = SubscriptionStatus.Selected;
@@ -42,6 +43,7 @@ public class Subscription
             throw new CommercialRuleException("The subscription plan can only be changed before activation.");
         }
 
+        ValidateSelection(plan, billingCycle);
         Plan = plan;
         BillingCycle = billingCycle;
         SelectedAt = DateTime.UtcNow;
@@ -72,6 +74,19 @@ public class Subscription
             : DateTime.UtcNow;
 
         CurrentPeriodEnd = EndOfCycle(periodStart, BillingCycle);
+    }
+
+    private static void ValidateSelection(SubscriptionPlan plan, BillingCycle billingCycle)
+    {
+        if (!Enum.IsDefined(plan))
+        {
+            throw new CommercialRuleException("Subscription plan is invalid.");
+        }
+
+        if (!Enum.IsDefined(billingCycle))
+        {
+            throw new CommercialRuleException("Billing cycle is invalid.");
+        }
     }
 
     private static DateTime EndOfCycle(DateTime start, BillingCycle billingCycle)

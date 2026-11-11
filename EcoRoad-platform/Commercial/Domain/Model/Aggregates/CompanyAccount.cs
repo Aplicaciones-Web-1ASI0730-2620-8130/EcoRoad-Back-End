@@ -14,6 +14,11 @@ public class CompanyAccount
         Id = Guid.NewGuid().ToString();
         Name = CommercialRules.Require(name, "Name", 100);
         Code = CommercialRules.RequireCompanyCode(code);
+        if (!Enum.IsDefined(segment))
+        {
+            throw new CommercialRuleException("Company segment is invalid.");
+        }
+
         Segment = segment;
         Status = CompanyAccountStatus.Registered;
         CreatedAt = DateTime.UtcNow;
