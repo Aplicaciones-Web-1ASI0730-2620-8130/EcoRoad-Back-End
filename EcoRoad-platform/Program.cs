@@ -14,6 +14,12 @@ using EcoRoad.Commercial.Application.Internal.QueryServices;
 using EcoRoad.Commercial.Application.QueryServices;
 using EcoRoad.Commercial.Domain.Repositories;
 using EcoRoad.Commercial.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using EcoRoad.Projects.Application.CommandServices;
+using EcoRoad.Projects.Application.Internal.CommandServices;
+using EcoRoad.Projects.Application.Internal.QueryServices;
+using EcoRoad.Projects.Application.QueryServices;
+using EcoRoad.Projects.Domain.Repositories;
+using EcoRoad.Projects.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Iam.Application.Acl;
 using EcoRoad.Iam.Application.CommandServices;
 using EcoRoad.Iam.Application.Internal.CommandServices;
@@ -141,6 +147,13 @@ builder.Services.AddScoped<ICompanyAccountCommandService, CompanyAccountCommandS
 builder.Services.AddScoped<ISubscriptionCommandService, SubscriptionCommandService>();
 builder.Services.AddScoped<ICompanyAccountQueryService, CompanyAccountQueryService>();
 builder.Services.AddScoped<ISubscriptionQueryService, SubscriptionQueryService>();
+
+// Project and Road Site Management bounded context dependency injection.
+builder.Services.AddScoped<IRoadProjectRepository, RoadProjectRepository>();
+builder.Services.AddScoped<IRoadSectionRepository, RoadSectionRepository>();
+builder.Services.AddScoped<IWorkFrontRepository, WorkFrontRepository>();
+builder.Services.AddScoped<IRoadSiteCommandService, RoadSiteCommandService>();
+builder.Services.AddScoped<IRoadSiteQueryService, RoadSiteQueryService>();
 
 var app = builder.Build();
 
