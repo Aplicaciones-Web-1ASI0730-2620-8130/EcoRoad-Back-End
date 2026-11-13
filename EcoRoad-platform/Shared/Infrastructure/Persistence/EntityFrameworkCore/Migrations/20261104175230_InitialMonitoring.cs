@@ -63,7 +63,7 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
                 {
                     table.PrimaryKey("PK_environmental_measurements", x => x.id);
                     table.ForeignKey(
-                        name: "FK_environmental_measurements_threshold_profiles_threshold_profile_id",
+                        name: "FK_env_measurements_threshold_profile",
                         column: x => x.threshold_profile_id,
                         principalTable: "threshold_profiles",
                         principalColumn: "id",
@@ -72,7 +72,7 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_environmental_measurements_project_id_parameter_type_recorded_at",
+                name: "IX_env_measurements_project_parameter_recorded",
                 table: "environmental_measurements",
                 columns: new[] { "project_id", "parameter_type", "recorded_at" });
 

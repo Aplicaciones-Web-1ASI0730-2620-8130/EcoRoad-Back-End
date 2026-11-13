@@ -1,5 +1,17 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
+using EcoRoad.Alerting.Application.CommandServices;
+using EcoRoad.Alerting.Application.Internal.CommandServices;
+using EcoRoad.Alerting.Application.Internal.QueryServices;
+using EcoRoad.Alerting.Application.QueryServices;
+using EcoRoad.Alerting.Domain.Repositories;
+using EcoRoad.Alerting.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using EcoRoad.Compliance.Application.CommandServices;
+using EcoRoad.Compliance.Application.Internal.CommandServices;
+using EcoRoad.Compliance.Application.Internal.QueryServices;
+using EcoRoad.Compliance.Application.QueryServices;
+using EcoRoad.Compliance.Domain.Repositories;
+using EcoRoad.Compliance.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Assets.Application.Acl;
 using EcoRoad.Assets.Application.CommandServices;
 using EcoRoad.Assets.Application.Internal.CommandServices;
@@ -8,6 +20,18 @@ using EcoRoad.Assets.Application.QueryServices;
 using EcoRoad.Assets.Domain.Repositories;
 using EcoRoad.Assets.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Assets.Interfaces.Acl;
+using EcoRoad.Commercial.Application.CommandServices;
+using EcoRoad.Commercial.Application.Internal.CommandServices;
+using EcoRoad.Commercial.Application.Internal.QueryServices;
+using EcoRoad.Commercial.Application.QueryServices;
+using EcoRoad.Commercial.Domain.Repositories;
+using EcoRoad.Commercial.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using EcoRoad.Projects.Application.CommandServices;
+using EcoRoad.Projects.Application.Internal.CommandServices;
+using EcoRoad.Projects.Application.Internal.QueryServices;
+using EcoRoad.Projects.Application.QueryServices;
+using EcoRoad.Projects.Domain.Repositories;
+using EcoRoad.Projects.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Iam.Application.Acl;
 using EcoRoad.Iam.Application.CommandServices;
 using EcoRoad.Iam.Application.Internal.CommandServices;
@@ -40,6 +64,7 @@ using EcoRoad.Shared.Infrastructure.Pipeline.Middleware.Extensions;
 using EcoRoad.Shared.Interfaces.Rest.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -128,6 +153,33 @@ builder.Services.AddScoped<ICorrectiveActionCommandService, CorrectiveActionComm
 builder.Services.AddScoped<IEnvironmentalIncidentQueryService, EnvironmentalIncidentQueryService>();
 builder.Services.AddScoped<IncidentsSampleDataSeeder>();
 
+// Commercial and Subscription Management bounded context dependency injection.
+builder.Services.AddScoped<ICompanyAccountRepository, CompanyAccountRepository>();
+builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+builder.Services.AddScoped<ICompanyAccountCommandService, CompanyAccountCommandService>();
+builder.Services.AddScoped<ISubscriptionCommandService, SubscriptionCommandService>();
+builder.Services.AddScoped<ICompanyAccountQueryService, CompanyAccountQueryService>();
+builder.Services.AddScoped<ISubscriptionQueryService, SubscriptionQueryService>();
+
+// Project and Road Site Management bounded context dependency injection.
+builder.Services.AddScoped<IRoadProjectRepository, RoadProjectRepository>();
+builder.Services.AddScoped<IRoadSectionRepository, RoadSectionRepository>();
+builder.Services.AddScoped<IWorkFrontRepository, WorkFrontRepository>();
+builder.Services.AddScoped<IRoadSiteCommandService, RoadSiteCommandService>();
+builder.Services.AddScoped<IRoadSiteQueryService, RoadSiteQueryService>();
+
+// Alerting and Risk Evaluation bounded context dependency injection.
+builder.Services.AddScoped<IAlertRuleRepository, AlertRuleRepository>();
+builder.Services.AddScoped<IAlertRepository, AlertRepository>();
+builder.Services.AddScoped<IAlertingCommandService, AlertingCommandService>();
+builder.Services.AddScoped<IAlertingQueryService, AlertingQueryService>();
+
+// Compliance and Reporting bounded context dependency injection.
+builder.Services.AddScoped<IEnvironmentalStatusRepository, EnvironmentalStatusRepository>();
+builder.Services.AddScoped<IComplianceReportRepository, ComplianceReportRepository>();
+builder.Services.AddScoped<IComplianceCommandService, ComplianceCommandService>();
+builder.Services.AddScoped<IComplianceQueryService, ComplianceQueryService>();
+
 var app = builder.Build();
 
 // Apply pending migrations and, in development, load the demo data.
@@ -155,8 +207,8 @@ using (var scope = app.Services.CreateScope())
 // The global exception handler must be the first middleware of the pipeline.
 app.UseGlobalExceptionHandler();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+app.MapSwagger("/openapi/{documentName}.json").AllowAnonymous();
+app.MapScalarApiReference(options => options.WithTitle("EcoRoad API")).AllowAnonymous();
 
 app.UseCors();
 app.UseRequestAuthorization();
