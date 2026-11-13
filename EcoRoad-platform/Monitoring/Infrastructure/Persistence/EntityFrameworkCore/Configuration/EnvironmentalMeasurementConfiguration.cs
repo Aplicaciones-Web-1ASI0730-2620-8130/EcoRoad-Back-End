@@ -105,13 +105,15 @@ public class EnvironmentalMeasurementConfiguration : IEntityTypeConfiguration<En
             .HasColumnName("updated_at")
             .HasColumnType("datetime");
 
-        builder.HasIndex(measurement => new { measurement.ProjectId, measurement.ParameterType, measurement.RecordedAt });
+        builder.HasIndex(measurement => new { measurement.ProjectId, measurement.ParameterType, measurement.RecordedAt })
+            .HasDatabaseName("IX_env_measurements_project_parameter_recorded");
 
         builder.HasIndex(measurement => measurement.SensorId);
 
         builder.HasOne<ThresholdProfile>()
             .WithMany()
             .HasForeignKey(measurement => measurement.ThresholdProfileId)
+            .HasConstraintName("FK_env_measurements_threshold_profile")
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

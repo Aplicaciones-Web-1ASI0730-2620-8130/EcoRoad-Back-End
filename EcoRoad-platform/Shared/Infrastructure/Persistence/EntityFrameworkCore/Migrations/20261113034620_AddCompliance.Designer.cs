@@ -1026,7 +1026,8 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
 
                     b.HasIndex("ThresholdProfileId");
 
-                    b.HasIndex("ProjectId", "ParameterType", "RecordedAt");
+                    b.HasIndex("ProjectId", "ParameterType", "RecordedAt")
+                        .HasDatabaseName("IX_env_measurements_project_parameter_recorded");
 
                     b.ToTable("environmental_measurements", (string)null);
                 });
@@ -1273,7 +1274,8 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
                         .WithMany()
                         .HasForeignKey("ThresholdProfileId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_env_measurements_threshold_profile");
                 });
 
             modelBuilder.Entity("EcoRoad.Projects.Domain.Model.Aggregates.RoadSection", b =>
