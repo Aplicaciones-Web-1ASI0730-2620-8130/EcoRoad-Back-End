@@ -52,6 +52,7 @@ using EcoRoad.Shared.Infrastructure.Pipeline.Middleware.Extensions;
 using EcoRoad.Shared.Interfaces.Rest.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -182,8 +183,8 @@ using (var scope = app.Services.CreateScope())
 // The global exception handler must be the first middleware of the pipeline.
 app.UseGlobalExceptionHandler();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+app.MapSwagger("/openapi/{documentName}.json").AllowAnonymous();
+app.MapScalarApiReference(options => options.WithTitle("EcoRoad API")).AllowAnonymous();
 
 app.UseCors();
 app.UseRequestAuthorization();
