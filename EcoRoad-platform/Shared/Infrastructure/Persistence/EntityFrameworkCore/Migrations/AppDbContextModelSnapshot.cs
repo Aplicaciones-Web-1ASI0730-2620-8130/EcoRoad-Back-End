@@ -866,6 +866,112 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
                     b.ToTable("threshold_profiles", (string)null);
                 });
 
+            modelBuilder.Entity("EcoRoad.Projects.Domain.Model.Aggregates.RoadProject", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("code");
+
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)")
+                        .HasColumnName("company_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("road_projects", (string)null);
+                });
+
+            modelBuilder.Entity("EcoRoad.Projects.Domain.Model.Aggregates.RoadSection", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("id");
+
+                    b.Property<double>("EndKilometer")
+                        .HasColumnType("double")
+                        .HasColumnName("end_kilometer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("ProjectId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("project_id");
+
+                    b.Property<double>("StartKilometer")
+                        .HasColumnType("double")
+                        .HasColumnName("start_kilometer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("road_sections", (string)null);
+                });
+
+            modelBuilder.Entity("EcoRoad.Projects.Domain.Model.Aggregates.WorkFront", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("SectionId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("section_id");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectionId");
+
+                    b.ToTable("work_fronts", (string)null);
+                });
+
             modelBuilder.Entity("EcoRoad.Assets.Domain.Model.Aggregates.Sensor", b =>
                 {
                     b.HasOne("EcoRoad.Assets.Domain.Model.Aggregates.MonitoringPoint", null)
@@ -925,11 +1031,43 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EcoRoad.Projects.Domain.Model.Aggregates.RoadSection", b =>
+                {
+                    b.HasOne("EcoRoad.Projects.Domain.Model.Aggregates.RoadProject", "Project")
+                        .WithMany("Sections")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("EcoRoad.Projects.Domain.Model.Aggregates.WorkFront", b =>
+                {
+                    b.HasOne("EcoRoad.Projects.Domain.Model.Aggregates.RoadSection", "Section")
+                        .WithMany("WorkFronts")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Section");
+                });
+
             modelBuilder.Entity("EcoRoad.Incidents.Domain.Model.Aggregates.EnvironmentalIncident", b =>
                 {
                     b.Navigation("CorrectiveActions");
 
                     b.Navigation("FieldEvidences");
+                });
+
+            modelBuilder.Entity("EcoRoad.Projects.Domain.Model.Aggregates.RoadProject", b =>
+                {
+                    b.Navigation("Sections");
+                });
+
+            modelBuilder.Entity("EcoRoad.Projects.Domain.Model.Aggregates.RoadSection", b =>
+                {
+                    b.Navigation("WorkFronts");
                 });
 #pragma warning restore 612, 618
         }
