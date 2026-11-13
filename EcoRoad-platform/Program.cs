@@ -6,6 +6,12 @@ using EcoRoad.Alerting.Application.Internal.QueryServices;
 using EcoRoad.Alerting.Application.QueryServices;
 using EcoRoad.Alerting.Domain.Repositories;
 using EcoRoad.Alerting.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
+using EcoRoad.Compliance.Application.CommandServices;
+using EcoRoad.Compliance.Application.Internal.CommandServices;
+using EcoRoad.Compliance.Application.Internal.QueryServices;
+using EcoRoad.Compliance.Application.QueryServices;
+using EcoRoad.Compliance.Domain.Repositories;
+using EcoRoad.Compliance.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Assets.Application.Acl;
 using EcoRoad.Assets.Application.CommandServices;
 using EcoRoad.Assets.Application.Internal.CommandServices;
@@ -167,6 +173,12 @@ builder.Services.AddScoped<IAlertRuleRepository, AlertRuleRepository>();
 builder.Services.AddScoped<IAlertRepository, AlertRepository>();
 builder.Services.AddScoped<IAlertingCommandService, AlertingCommandService>();
 builder.Services.AddScoped<IAlertingQueryService, AlertingQueryService>();
+
+// Compliance and Reporting bounded context dependency injection.
+builder.Services.AddScoped<IEnvironmentalStatusRepository, EnvironmentalStatusRepository>();
+builder.Services.AddScoped<IComplianceReportRepository, ComplianceReportRepository>();
+builder.Services.AddScoped<IComplianceCommandService, ComplianceCommandService>();
+builder.Services.AddScoped<IComplianceQueryService, ComplianceQueryService>();
 
 var app = builder.Build();
 
