@@ -4,6 +4,7 @@ using EcoRoad.Monitoring.Infrastructure.Persistence.EntityFrameworkCore.Configur
 using EcoRoad.Incidents.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 using EcoRoad.Commercial.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 using EcoRoad.Projects.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
+using EcoRoad.Alerting.Infrastructure.Persistence.EntityFrameworkCore.Configuration.Extensions;
 using EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Interceptors;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,5 +41,6 @@ public class AppDbContext : DbContext
         builder.ApplyIncidentsConfiguration();
         builder.ApplyCommercialConfiguration();
         builder.ApplyProjectsConfiguration();
+        builder.ApplyAlertingConfiguration();
     }
 }

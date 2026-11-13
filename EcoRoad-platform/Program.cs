@@ -1,5 +1,11 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
+using EcoRoad.Alerting.Application.CommandServices;
+using EcoRoad.Alerting.Application.Internal.CommandServices;
+using EcoRoad.Alerting.Application.Internal.QueryServices;
+using EcoRoad.Alerting.Application.QueryServices;
+using EcoRoad.Alerting.Domain.Repositories;
+using EcoRoad.Alerting.Infrastructure.Persistence.EntityFrameworkCore.Repositories;
 using EcoRoad.Assets.Application.Acl;
 using EcoRoad.Assets.Application.CommandServices;
 using EcoRoad.Assets.Application.Internal.CommandServices;
@@ -155,6 +161,12 @@ builder.Services.AddScoped<IRoadSectionRepository, RoadSectionRepository>();
 builder.Services.AddScoped<IWorkFrontRepository, WorkFrontRepository>();
 builder.Services.AddScoped<IRoadSiteCommandService, RoadSiteCommandService>();
 builder.Services.AddScoped<IRoadSiteQueryService, RoadSiteQueryService>();
+
+// Alerting and Risk Evaluation bounded context dependency injection.
+builder.Services.AddScoped<IAlertRuleRepository, AlertRuleRepository>();
+builder.Services.AddScoped<IAlertRepository, AlertRepository>();
+builder.Services.AddScoped<IAlertingCommandService, AlertingCommandService>();
+builder.Services.AddScoped<IAlertingQueryService, AlertingQueryService>();
 
 var app = builder.Build();
 
