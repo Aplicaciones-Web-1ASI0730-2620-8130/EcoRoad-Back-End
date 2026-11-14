@@ -1115,8 +1115,8 @@ namespace EcoRoad.Shared.Infrastructure.Persistence.EntityFrameworkCore.Migratio
 
                     b.Property<string>("CompanyId")
                         .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("varchar(3)")
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar(36)")
                         .HasColumnName("company_id");
 
                     b.Property<DateTime>("CreatedAt")

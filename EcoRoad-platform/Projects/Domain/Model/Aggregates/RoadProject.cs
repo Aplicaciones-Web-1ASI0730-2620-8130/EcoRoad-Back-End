@@ -12,7 +12,7 @@ public class RoadProject
     public RoadProject(string companyId, string name, string code, string? status)
     {
         Id = Guid.NewGuid().ToString();
-        CompanyId = ProjectRules.Require(companyId, "Company id", 3);
+        CompanyId = ProjectRules.Require(companyId, "Company id", 36);
         Name = ProjectRules.Require(name, "Name", 100);
         Code = ProjectRules.Require(code, "Code", 50);
         Status = ProjectRules.RegisteredStatus(status);

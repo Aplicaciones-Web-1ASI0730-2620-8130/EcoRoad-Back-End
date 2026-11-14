@@ -20,8 +20,8 @@ public class RoadProjectConfiguration : IEntityTypeConfiguration<RoadProject>
 
         builder.Property(project => project.CompanyId)
             .HasColumnName("company_id")
-            .HasColumnType("varchar(3)")
-            .HasMaxLength(3)
+            .HasColumnType("varchar(36)")
+            .HasMaxLength(36)
             .IsRequired();
 
         builder.Property(project => project.Name)
