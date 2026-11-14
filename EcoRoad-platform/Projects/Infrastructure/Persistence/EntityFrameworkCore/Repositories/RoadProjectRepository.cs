@@ -18,6 +18,8 @@ public class RoadProjectRepository : IRoadProjectRepository
     {
         return await _context.Set<RoadProject>()
             .AsNoTracking()
+            .Include(project => project.Sections)
+            .ThenInclude(section => section.WorkFronts)
             .ToListAsync(cancellationToken);
     }
 
