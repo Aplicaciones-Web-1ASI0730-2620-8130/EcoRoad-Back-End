@@ -3,3 +3,5 @@ obj/
 .vs/
 *.user
 appsettings.*.local.json
+# JetBrains Rider
+.idea/
